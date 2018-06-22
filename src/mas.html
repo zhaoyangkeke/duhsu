@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/data.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <input type="text" name="" id="" class="in"><br><br>
+        <ul class="list">
+        </ul>
+        <ul class="listo">
+        </ul>
+        <ul class="listw">
+        </ul>
+    </div>
+    <script>
+        function City(id, arr) {
+            this.oBox = $(id);
+            this.oInp = $('.in');
+            this.aUl = document.getElementsByTagName('ul');
+            this.data = arr;
+            this.init();
+        }
+        City.prototype.init = function() {
+            var _this = this;
+            this.oInp.on('focus', function() {
+                _this.showUl1();
+            })
+        };
+        City.prototype.showUl1 = function() {
+            var _this = this;
+            this.aUl[0].style.display = 'block';
+            this.aUl[0].innerHTML = '';
+            $.each(this.data, function(i, v) {
+                var oLi = document.createElement('li');
+                oLi.innerHTML = v.kpName;
+                $('.list')[0].appendChild(oLi);
+                oLi.onclick = function() {
+                    _this.showUl2(this.innerHTML);
+                }
+            });
+        };
+        City.prototype.showUl2 = function(v1) {
+            var _this = this;
+
+            this.aUl[1].style.display = 'block';
+            this.aUl[1].innerHTML = '';
+            $.each(this.data, function(i, v) {
+                // console.log([v]);
+                if (v.kpName == v1) {
+                    // console.log(v.kpListVOs)
+                    $.each(v.kpListVOs, function(k, s) {
+                        var oLi = document.createElement('li');
+                        oLi.innerHTML = s.kpName;
+
+                        $('.listo')[0].appendChild(oLi);
+                        oLi.onclick = function() {
+                            _this.showUl3(v1, this.innerHTML);
+                        }
+                    })
+                }
+            });
+
+        };
+        City.prototype.showUl3 = function(v1, v2) {
+            var _this = this;
+            this.aUl[2].style.display = 'block';
+            this.aUl[2].innerHTML = '';
+            $.each(this.data, function(i, v) {
+                if (v.kpName == v1) {
+                    // console.log(v.kpListVOs)
+                    $.each(v.kpListVOs, function(k, s) {
+                        if (s.kpName == v2) {
+                            $.each(s.kpListVOs, function(n, d) {
+                                var oLi = document.createElement('li');
+                                oLi.innerHTML = d.kpName;
+                                $('.listw')[0].appendChild(oLi);
+                                oLi.onclick = function() {
+                                    $('.in').val(v1 + '  ' + v2 + '  ' + this.innerHTML);
+                                    for (var i = 0; i < _this.aUl.length; i++) {
+                                        _this.aUl[i].style.display = 'none';
+                                    }
+                                }
+                            })
+
+                        }
+
+                    })
+                }
+            });
+        };
+        new City('#box', data);
+    </script>
+</body>
+
+</html>

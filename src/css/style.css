@@ -1,0 +1,29 @@
+  * {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+  }
+  
+  ul {
+      width: 100px;
+      height: 200px;
+      border: 1px solid #cc8ccb;
+      float: left;
+      margin-right: 3px;
+      overflow-y: auto;
+      display: none;
+  }
+  
+  input {
+      float: left;
+  }
+  
+  li {
+      line-height: 19px;
+      border-bottom: 1px solid aquamarine;
+      text-align: center;
+  }
+  
+  li:hover {
+      background: #ffec2a;
+  }
