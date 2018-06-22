@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <script src = "js/data.js"></script>
+    <script src = "js/lib/jquery-1.8.3.min.js"></script>
+    <div class = "wrapper">
+        <div class = "apple">
+            <p class = "first">第一级</p>
+            <ul class = "list1"></ul>
+        </div>
+        <div class = "banana">
+            <p class = "second">第二级</p>
+            <ul class = "list2"></ul>
+        </div>
+        <div class = "orange">
+            <p class = "throud">第三级</p>
+            <ul class = "list3"></ul>
+        </div>
+    </div>
+    <script>
+        $.each(data,function(i,v){
+            //console.log(v)
+            var str = '<li>'+v.kpName+'</li>'
+            //console.log(str)
+            $('.list1').append(str)
+            var str1 = ""
+            $.each(v.kpListVOs,function(a,b){
+               str1+='<li>'+b.kpName+'</li>';
+               $('.list2').append(str1)
+            $.each(b.kpListVOs,function(c,d){
+                var str3 = '<li>'+d.kpName+'</li>'
+                $('.list3').append(str3)
+            })
+            })
+        })
+        $('.first').on('click',function(){
+            $(this).next().children().slideToggle()
+        })
+        $('.list1').on('click','li',function(){
+            $(this).parents().next().find('li').slideDown()
+            $(this).addClass('active').siblings().removeClass('active')
+        })
+        $('.second').on('click',function(){
+            $(this).next().children().slideToggle()
+        })
+        $('.list2').on('click','li',function(){
+            $(this).parents().next().find('li').slideDown()
+            $(this).addClass('active').siblings().removeClass('active')
+        })
+        $('.throud').on('click',function(){
+            $(this).next().children().slideToggle()
+        })
+    </script>
+</body>
+</html>
