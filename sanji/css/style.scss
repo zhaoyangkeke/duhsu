@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+.list {
+    width: 900px;
+    height: auto;
+    display: flex;
+    .listone,
+    .listtwo,
+    .listtherr {
+        width: 200px;
+        >ul {
+            width: 100%;
+            height: auto;
+            li {
+                width: 100%;
+                height: 40px;
+                text-align: center;
+                line-height: 40px;
+                border: 1px solid #ccc;
+                cursor: pointer;
+            }
+        }
+    }
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./js/jquery-1.8.3.min.js"></script>
+    <script src="./js/handlebars-v4.0.11.js"></script>
+    <script src="./data.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="list">
+        <div class="listone"></div>
+        <div class="listtwo"></div>
+        <div class="listtherr"></div>
+    </div>
+    <!-- 一级 -->
+    <script type="text/x-handlebars-template" class="handle">
+        <ul>
+            {{#each this}}
+            <li>{{kpName}}</li>
+            {{/each}}
+        </ul>
+    </script>
+    <script>
+        function temp(text, data, parent) {
+            var compile = Handlebars.compile(text);
+            $(parent).html(compile(data));
+        };
+        // 一级
+        temp($('.handle').text(), data, $('.listone'));
+
+        // 滑过显示二级
+        var that = null;
+        $('.listone').on('mousemove', 'li', function() {
+            that = $(this).index();
+            temp($('.handle').text(), data[that].kpListVOs, $('.listtwo'));
+        });
+        // 滑过二级显示三级
+        $('.listtwo').on('mousemove', 'li', function() {
+            temp($('.handle').text(), data[that].kpListVOs[$(this).index()].kpListVOs, $('.listtherr'));
+        });
+    </script>
+</body>
+
+</html>
